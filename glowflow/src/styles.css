@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+@theme {
+  /* Adding new custom breakpoints */
+  --breakpoint-mobile: 320px;
+  --breakpoint-tablet: 600px;
+  --breakpoint-laptop: 1280px;
+  --breakpoint-desktop: 1440px;
+  --breakpoint-ultrawide: 1920px;
+   --breakpoint-tv: 3840px;
+
+
+}

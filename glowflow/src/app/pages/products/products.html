@@ -1,0 +1,41 @@
+
+<div class="min-h-screen bg-[#FAF9F6] text-stone-800 font-sans">
+  
+    @if(!selectedProduct()) {
+ <header class="py-16 px-6 text-center">
+        <h1 class="text-4xl tablet:text-5xl font-light tracking-tight mb-4">Shop the Glow</h1>
+        <p class="text-stone-500 max-w-lg mx-auto">
+          Dermatologist-tested formulas designed to bring out your skin's natural radiance.
+        </p>
+      </header>
+    }
+     
+
+       @if (productsResource.isLoading()) {
+    <div class="flex justify-center py-20">
+      <div class="w-8 h-8 border-2 border-stone-200 border-t-stone-800 rounded-full animate-spin"></div>
+    </div>
+  }@else {
+    
+    @if (selectedProduct()) {
+      
+      <app-product-detail [product]="selectedProduct()" />
+
+    } @else if (displayProducts().length > 0) {
+      
+      <app-products-component [products]="displayProducts()"/>
+
+    } @else {
+      
+      <div class="text-center py-20 text-stone-400">
+        <p>No products found in this category.</p>
+        <a routerLink="/makeup/face-primer" class="text-xs border-b border-stone-400 mt-4 inline-block">Return to Shop</a>
+      </div>
+
+    }
+  }
+
+    
+
+
+</div>

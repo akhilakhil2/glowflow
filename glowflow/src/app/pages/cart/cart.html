@@ -1,0 +1,148 @@
+
+@if (!isCheckedOut()) {
+
+
+
+<div class="min-h-screen bg-white px-8 py-16 font-sans">
+  <div class="max-w-7xl mx-auto mb-12 border-b border-stone-100 pb-8">
+    <h1 class="text-3xl font-light tracking-[0.3em] uppercase text-stone-900">Your Selection</h1>
+    <p class="text-xs text-stone-400 mt-2 tracking-widest uppercase">
+      {{ cartService.cartCount() }} items in your bag
+    </p>
+  </div>
+
+  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16">
+    
+    <div class="lg:col-span-8 space-y-8">
+      
+      @for (item of cartService.cartItems(); track item.product.name) {
+        <div class="flex gap-6 pb-8 border-b border-stone-50 group animate-in fade-in slide-in-from-bottom-2 duration-500">
+          
+          <div class="w-32 aspect-3/4 bg-stone-100 relative overflow-hidden">
+            <img [src]="item.product.images[0]" 
+                 class="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700" 
+                 [alt]="item.product.name">
+          </div>
+
+          <div class="flex-1 flex flex-col justify-between">
+            <div class="flex justify-between items-start">
+              <div>
+                <h3 class="text-[10px] uppercase tracking-[0.2em] text-stone-400 mb-1">{{ item.product.brand }}</h3>
+                <h2 class="text-sm font-medium text-stone-900 tracking-wide">{{ item.product.name }}</h2>
+              </div>
+              <p class="text-sm font-light text-stone-900">{{ item.product.price | currency }}</p>
+            </div>
+
+            <div class="flex justify-between items-end">
+              <div class="flex items-center border border-stone-200 px-3 py-1 gap-4">
+                <button (click)="decreaseQty(item.product.id)" class="hover:cursor-pointer text-stone-400 hover:text-stone-900 transition-colors">−</button>
+                <span class="text-xs font-medium w-4 text-center">{{ item.quantity }}</span>
+                <button (click)="increaseQty(item.product.id)" class="hover:cursor-pointer text-stone-400 hover:text-stone-900 transition-colors">+</button>
+              </div>
+              
+              <button (click)="cartService.removeFromCart(item.product.id)" 
+                      class="hover:cursor-pointer text-[9px] uppercase tracking-[0.2em] text-stone-300 hover:text-red-800 transition-colors border-b border-transparent hover:border-red-800 pb-0.5">
+                Remove
+              </button>
+            </div>
+          </div>
+        </div>
+      } @empty {
+        <div class="py-20 text-center border border-dashed border-stone-200">
+          <p class="text-[10px] uppercase tracking-[0.3em] text-stone-400">Your selection is currently empty</p>
+          <a routerLink="/makeup/face-primer" class="inline-block mt-6 text-[10px] uppercase tracking-[0.2em] border-b border-stone-900 pb-1">Explore Products</a>
+        </div>
+      }
+
+    </div>
+
+    <div class="lg:col-span-4">
+      <div class="bg-stone-50 p-8 sticky top-24">
+        <h2 class="text-[10px] uppercase tracking-[0.3em] font-bold text-stone-900 mb-8">Order Summary</h2>
+        
+        <div class="space-y-4 mb-8">
+          <div class="flex justify-between text-xs tracking-wide">
+            <span class="text-stone-500">Subtotal</span>
+            <span class="text-stone-900">{{ cartService.totalPrice() | currency }}</span>
+          </div>
+          <div class="flex justify-between text-xs tracking-wide">
+            <span class="text-stone-500">Shipping</span>
+            <span class="text-stone-400 italic">Complimentary</span>
+          </div>
+          <div class="border-t border-stone-200 pt-4 flex justify-between font-medium">
+            <span class="text-[10px] uppercase tracking-widest">Estimated Total</span>
+            <span class="text-lg text-stone-900">{{ cartService.totalPrice() | currency }}</span>
+          </div>
+        </div>
+
+        <button [disabled]="cartService.cartCount() === 0" (click)="handleCheckout()"
+                class="w-full hover:cursor-pointer  bg-stone-900 text-white py-4 text-[10px] uppercase tracking-[0.3em] font-medium hover:bg-stone-800 disabled:bg-stone-200 disabled:cursor-not-allowed transition-all active:scale-[0.98]">
+          Proceed to Checkout
+        </button>
+
+        <p class="mt-6 text-[9px] text-stone-400 text-center leading-relaxed tracking-widest uppercase">
+          Secure checkout handled by encrypted systems.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+}@else {
+  <div class="max-w-3xl mt-4 mb-4 mx-auto animate-in fade-in zoom-in duration-700">
+      
+      <div class="text-center mb-16">
+        <div class="w-12 h-12 bg-stone-900 text-white rounded-full flex items-center justify-center mx-auto mb-6">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+          </svg>
+        </div>
+        <h1 class="text-2xl font-light tracking-[0.4em] uppercase">Order Confirmed</h1>
+        <p class="text-[10px] text-stone-400 mt-4 tracking-widest uppercase">Thank you for choosing GlowFlow</p>
+      </div>
+
+      <div class="border border-stone-100 p-10 shadow-sm bg-stone-50/30">
+        <div class="flex justify-between items-start mb-12">
+          <div>
+            <p class="text-[10px] uppercase tracking-widest text-stone-400">Order Number</p>
+            <p class="text-sm font-medium">{{ orderNumber() }}</p>
+          </div>
+          <div class="text-right">
+            <p class="text-[10px] uppercase tracking-widest text-stone-400">Date</p>
+            <p class="text-sm font-medium">Feb 10, 2026</p>
+          </div>
+        </div>
+
+        <table class="w-full mb-12">
+          <thead>
+            <tr class="border-b border-stone-200 text-[9px] uppercase tracking-widest text-stone-400">
+              <th class="text-left pb-4 font-normal">Item</th>
+              <th class="text-center pb-4 font-normal">Qty</th>
+              <th class="text-right pb-4 font-normal">Amount</th>
+            </tr>
+          </thead>
+          <tbody class="text-sm">
+            @for (item of invoiceItems(); track item.product.id) {
+              <tr class="border-b border-stone-50">
+                <td class="py-6 font-light">{{ item.product.name }}</td>
+                <td class="py-6 text-center">{{ item.quantity }}</td>
+                <td class="py-6 text-right">{{ (item.product.price * item.quantity) | currency }}</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+
+        <div class="flex justify-between items-center pt-6 border-t border-stone-900">
+          <p class="text-[10px] uppercase tracking-[0.3em] font-bold">Total Amount Paid</p>
+          <p class="text-2xl font-light">{{ invoiceTotal() | currency }}</p>
+        </div>
+      </div>
+
+      <div class="mt-12 text-center">
+        <button routerLink="/" class="hover:cursor-pointer text-[10px] uppercase tracking-[0.2em] border-b border-stone-900 pb-1 hover:text-stone-500 transition-colors">
+          Return to Boutique
+        </button>
+      </div>
+    </div>
+  }

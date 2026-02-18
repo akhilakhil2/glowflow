@@ -1,0 +1,17 @@
+
+bin/
+obj/
+/out/
+.vscode/
+.idea/
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.db
+*.db-shm
+*.db-wal
+.dockerignore
+.env
+appsettings.Development.json

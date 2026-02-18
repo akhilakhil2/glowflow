@@ -1,0 +1,250 @@
+<div class="relative group  shadow-emerald-900 hidden laptop:block">
+
+  <div class="hover:text-sky-700 text-gray-700 py-6 cursor-pointer flex items-center">
+    Makeup Kits
+  </div>
+
+  <div id="kit-dropdown"
+    class="absolute  top-full  hidden group-hover:flex  bg-white border border-stone-100 shadow-xl rounded-xl px-1 z-30">
+
+
+     <div class=" py-4">
+
+      <div class=" text-base text-stone-800  px-6 ">Makeup Kits </div>
+      <ul class="list-none min-w-36">
+        @for (product of kitProducts; track product; ) {
+        <li
+          class="px-6 py-2 text-sm text-stone-600 hover:bg-emerald-50 hover:text-emerald-700 cursor-pointer transition-all">
+         <a [routerLink]="product.href" class="w-full"> {{product.name}}</a>
+        </li>
+        }
+      </ul>
+
+      <div class=" text-base text-stone-800  px-6 mt-5">Nails</div>
+      <ul class="list-none min-w-44">
+        @for (product of nailProducts; track product; ) {
+        <li
+          class="px-6 py-2 text-sm text-stone-600 hover:bg-emerald-50 hover:text-emerald-700 cursor-pointer transition-all">
+         <a [routerLink]="product.href" class="w-full"> {{product.name}}</a>
+        </li>
+        }
+      </ul>
+    </div>
+
+    
+    <div class="bg-gray-100 py-4">
+      <div class=" text-base text-stone-800  px-6">Face</div>
+      <ul class="list-none min-w-36">
+        @for (product of faceProducts; track product.name; ) {
+        <li
+          class="px-6 py-2 text-sm text-stone-600 hover:bg-emerald-50 hover:text-emerald-700 cursor-pointer transition-all">
+
+          <a [routerLink]="product.href" class="w-full"> {{product.name}}</a>
+        </li>
+
+
+        }
+      </ul>
+
+
+    </div>
+     <div class=" py-4">
+
+      <div class=" text-base text-stone-800  px-6">Lips</div>
+      <ul class="list-none min-w-44">
+        @for (product of lipProducts; track product; ) {
+        <li
+          class="px-6 py-2 text-sm text-stone-600 hover:bg-emerald-50 hover:text-emerald-700 cursor-pointer transition-all">
+           <a [routerLink]="product.href" class="w-full"> {{product.name}}</a>
+        </li>
+        }
+      </ul>
+
+
+    </div>
+
+
+    <div class="bg-gray-100 py-4">
+      <div class=" text-base text-stone-800  px-6">Eyes</div>
+      <ul class="list-none min-w-44">
+        @for (product of eyeProducts; track product; ) {
+        <li
+          class="px-6 py-2 text-sm text-stone-600 hover:bg-emerald-50 hover:text-emerald-700 cursor-pointer transition-all">
+           <a [routerLink]="product.href" class="w-full"> {{product.name}}</a>
+        </li>
+        }
+      </ul>
+
+    </div>
+
+   
+
+    <div class=" py-4">
+      <div class=" text-base text-stone-800  px-6">Tools & Brushes</div>
+      <ul class="list-none min-w-44">
+        @for (product of toolProducts; track product; ) {
+        <li
+          class="px-6 py-2 text-sm text-stone-600 hover:bg-emerald-50 hover:text-emerald-700 cursor-pointer transition-all">
+         <a [routerLink]="product.href" class="w-full"> {{product.name}}</a>
+        </li>
+        }
+      </ul>
+
+    </div>
+
+   
+
+
+
+  </div>
+</div>
+
+<div class="block laptop:hidden">
+
+
+  <div class="group">
+  <div (click)="toggleMenuMakeup()" 
+       class="flex justify-between items-center cursor-pointer p-4 border-b border-stone-100 transition-colors ">
+    
+    <span class="text-lg font-serif tracking-wide text-stone-800 uppercase">  Makeup Kits</span>
+    
+    <div class="relative w-4 h-4 text-stone-400">
+      <span class="absolute inset-0 flex items-center justify-center transition-transform duration-300" 
+            [class.rotate-90]="isMakupDropdownOpen">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+        </svg>
+      </span>
+      <span class="absolute inset-0 flex items-center justify-center transition-opacity duration-300"
+            [class.opacity-0]="isMakupDropdownOpen">
+        </span>
+    </div>
+  </div>
+
+  <div class="overflow-hidden transition-all duration-500 ease-in-out bg-stone-50/50 "
+       [class.max-h-min]="isMakupDropdownOpen"
+       [class.max-h-0]="!isMakupDropdownOpen">
+    
+    <div class="py-2 flex flex-col">
+ 
+<div>
+    <div (click)="togglekitCollections()" 
+         class="px-8 py-3 text-sm flex justify-between items-center text-stone-500 hover:text-emerald-800 hover:bg-white cursor-pointer transition-all border-l-2 border-transparent hover:border-emerald-800">
+      <span>makeup kits </span>
+      <span class="text-[10px] transition-transform duration-300" [class.rotate-180]="iskitDropdownOpen">▼</span>
+    </div>
+
+    <div class="overflow-hidden transition-all duration-300 ease-in-out bg-stone-100/30"
+         [class.max-h-min]="iskitDropdownOpen"
+         [class.max-h-0]="!iskitDropdownOpen">
+      <div class="pl-12 py-2 flex flex-col space-y-2 text-xs text-stone-500">
+         @for (product of kitProducts; track product; ){
+           <a [routerLink]="product.href" class="hover:text-emerald-700">{{product.name}}</a>
+         }
+      </div>
+    </div>
+  </div>
+        <div>
+    <div (click)="togglelipsCollections()" 
+         class="px-8 py-3 text-sm flex justify-between items-center text-stone-500 hover:text-emerald-800 hover:bg-white cursor-pointer transition-all border-l-2 border-transparent hover:border-emerald-800">
+      <span>Lips </span>
+      <span class="text-[10px] transition-transform duration-300" [class.rotate-180]="islipsDropdownOpen">▼</span>
+    </div>
+
+    <div class="overflow-hidden transition-all duration-300 ease-in-out bg-stone-100/30"
+         [class.max-h-min]="islipsDropdownOpen"
+         [class.max-h-0]="!islipsDropdownOpen">
+      <div class="pl-12 py-2 flex flex-col space-y-2 text-xs text-stone-500">
+         @for (product of lipProducts; track product; ){
+           <a [routerLink]="product.href" class="hover:text-emerald-700">{{product.name}}</a>
+         }
+      </div>
+    </div>
+  </div>
+
+       <div>
+    <div (click)="toggleeyeCollections()" 
+         class="px-8 py-3 text-sm flex justify-between items-center text-stone-500 hover:text-emerald-800 hover:bg-white cursor-pointer transition-all border-l-2 border-transparent hover:border-emerald-800">
+      <span>Eyes </span>
+      <span class="text-[10px] transition-transform duration-300" [class.rotate-180]="iseyeDropdownOpen">▼</span>
+    </div>
+
+    <div class="overflow-hidden transition-all duration-300 ease-in-out bg-stone-100/30"
+         [class.max-h-min]="iseyeDropdownOpen"
+         [class.max-h-0]="!iseyeDropdownOpen">
+      <div class="pl-12 py-2 flex flex-col space-y-2 text-xs text-stone-500">
+         @for (product of eyeProducts; track product; ){
+           <a [routerLink]="product.href" class="hover:text-emerald-700">{{product.name}}</a>
+         }
+      </div>
+    </div>
+  </div>
+   
+    <div>
+    <div (click)="toggleFaceCollections()" 
+         class="px-8 py-3 text-sm flex justify-between items-center text-stone-500 hover:text-emerald-800 hover:bg-white cursor-pointer transition-all border-l-2 border-transparent hover:border-emerald-800">
+      <span>Face </span>
+      <span class="text-[10px] transition-transform duration-300" [class.rotate-180]="isFaceDropdownOpen">▼</span>
+    </div>
+
+    <div class="overflow-hidden transition-all duration-300 ease-in-out bg-stone-100/30"
+         [class.max-h-min]="isFaceDropdownOpen"
+         [class.max-h-0]="!isFaceDropdownOpen">
+      <div class="pl-12 py-2 flex flex-col space-y-2 text-xs text-stone-500">
+         @for (product of faceProducts; track product; ){
+           <a [routerLink]="product.href" class="hover:text-emerald-700">{{product.name}}</a>
+         }
+      </div>
+    </div>
+  </div>
+
+   
+
+  
+
+  <div>
+    <div (click)="togglebrushCollections()" 
+         class="px-8 py-3 text-sm flex justify-between items-center text-stone-500 hover:text-emerald-800 hover:bg-white cursor-pointer transition-all border-l-2 border-transparent hover:border-emerald-800">
+      <span>brushes </span>
+      <span class="text-[10px] transition-transform duration-300" [class.rotate-180]="isbrushDropdownOpen">▼</span>
+    </div>
+
+    <div class="overflow-hidden transition-all duration-300 ease-in-out bg-stone-100/30"
+         [class.max-h-min]="isbrushDropdownOpen"
+         [class.max-h-0]="!isbrushDropdownOpen">
+      <div class="pl-12 py-2 flex flex-col space-y-2 text-xs text-stone-500">
+         @for (product of toolProducts; track product; ){
+           <a [routerLink]="product.href" class="hover:text-emerald-700">{{product.name}}</a>
+         }
+      </div>
+    </div>
+  </div>
+
+   <div>
+    <div (click)="togglenailCollections()" 
+         class="px-8 py-3 text-sm flex justify-between items-center text-stone-500 hover:text-emerald-800 hover:bg-white cursor-pointer transition-all border-l-2 border-transparent hover:border-emerald-800">
+      <span>Nails </span>
+      <span class="text-[10px] transition-transform duration-300" [class.rotate-180]="isnailDropdownOpen">▼</span>
+    </div>
+
+    <div class="overflow-hidden transition-all duration-300 ease-in-out bg-stone-100/30"
+         [class.max-h-min]="isnailDropdownOpen"
+         [class.max-h-0]="!isnailDropdownOpen">
+      <div class="pl-12 py-2 flex flex-col space-y-2 text-xs text-stone-500">
+         @for (product of nailProducts; track product; ){
+           <a [routerLink]="product.href" class="hover:text-emerald-700">{{product.name}}</a>
+         }
+      </div>
+    </div>
+  </div>
+
+  
+
+
+  
+</div>
+  </div>
+</div>
+
+
+</div>
